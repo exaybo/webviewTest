@@ -1,8 +1,8 @@
 ﻿class CrowlSearchStorage extends CrowlResident {
+    static serializingClasses = [CrowlSearchStorage]
     //хранилище результатов поиска в sessionstorage
     SearchResults = [];
     NextIndex = 0;
-    static serializingClasses = [CrowlResident]
 
     //constructor() {
     //    //загрузка состояния из сессионного хранилища
@@ -31,10 +31,21 @@
             }
             this.NextIndex++;
             //window.sessionStorage.setItem("CrowlSearchStorage_NextIndex", this.NextIndex);
-            this.saveSelf();
+            CrowlSearchStorage.saveSelf(this);
             return result;
         }
         return { value: this.SearchResults.length, done: true };
+    }
+
+    resetIterator() {
+        this.NextIndex = 0;
+        CrowlSearchStorage.saveSelf(this);
+    }
+
+    clear() {
+        this.SearchResults = [];
+        this.NextIndex = 0;
+        CrowlSearchStorage.saveSelf(this);
     }
 
     append(url) {
@@ -42,7 +53,7 @@
         if (!this.SearchResults.includes(url)) {
             this.SearchResults.push(url);
             //window.sessionStorage.setItem("CrowlSearchStorage_SearchResults", this.SearchResults);
-            this.saveSelf();
+            CrowlSearchStorage.saveSelf(this);
         }
     }
 }

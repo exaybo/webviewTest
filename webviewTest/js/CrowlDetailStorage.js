@@ -22,16 +22,22 @@ class CrowlSneackersDetail {
 
 class CrowlDetailStorage extends CrowlResident{
     static serializingClasses = [CrowlDetailStorage, CrowlSneackersDetail, CrowlSneackersSize]
-    
+    constructor() { super() }
     Details = [];
+
+    clear() {
+        this.Details = [];
+        CrowlDetailStorage.saveSelf(this);
+    }
 
     append(detail) {
         if (typeof (detail) != "object" || detail.constructor.name != "CrowlSneackersDetail")
             throw new Error("detail is not CrowlSneackersDetail")
         //добавит в конец массива
-        if (this.Details.findIndex(d => d.PageUrl == detail.PageUrl) != -1) {
+        if (this.Details.findIndex(d => d.PageUrl == detail.PageUrl) == -1) {
             this.Details.push(detail);            
         }
-        this.saveSelf();
+        CrowlDetailStorage.saveSelf(this);
+        //this.saveSelf(this);
     }
 }

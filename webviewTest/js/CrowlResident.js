@@ -2,6 +2,8 @@
     static obj = null;
     static serializingClasses = [CrowlResident]
 
+    constructor() { }
+
     static get sessionName() {
         return "crowler_" + this.name;
     }
@@ -15,14 +17,13 @@
     
 
     static fab() {
-        debugger;
         //if (this.obj == null)
             this.obj = this.loadSelf();
         return this.obj;
     }
 
-    static saveSelf() {
-        let jstr = this.serializer.serialize(this);
+    static saveSelf(obj) {
+        let jstr = this.serializer.serialize(obj);
         window.sessionStorage.setItem(this.sessionName, jstr);
     }
 
