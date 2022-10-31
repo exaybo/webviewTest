@@ -14,7 +14,7 @@ class CrowlSneackersDetail {
     ModelName;
     ModelCode;
     Price;
-    DiscountPrice;
+    DiscountFromPrice;
     PageUrl;
     ImgUrl;
     SizesArray;
